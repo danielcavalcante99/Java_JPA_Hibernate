@@ -20,6 +20,9 @@ public class Produto {
 
     private LocalDate dataCadastro = LocalDate.now();
 
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
+
     public Long getId() {
         return id;
     }
