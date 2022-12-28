@@ -6,6 +6,7 @@ import utils.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 public class ProdutoService {
     private EntityManager em = JPAUtil.getEntityManager();
@@ -20,6 +21,23 @@ public class ProdutoService {
         } catch (Exception e) {
             e.printStackTrace();
             this.em.getTransaction().rollback();
+        } finally {
+            this.em.close();
+        }
+    }
+
+    public void atualizar(Produto produto) {
+        try {
+            Optional.of(this.buscarPorId(produto.getId()))
+
+            this.em.getTransaction().begin();
+            this.dao.atualizar(produto);
+            this.em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if(this.em.getTransaction().isActive()) {
+                this.em.getTransaction().rollback();
+            }
         } finally {
             this.em.close();
         }

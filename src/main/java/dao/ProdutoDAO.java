@@ -16,6 +16,10 @@ public class ProdutoDAO {
         this.em.persist(produto);
     }
 
+    public void atualizar(Produto produto) {
+        this.em.merge(produto);
+    }
+
     public Produto buscarPorId(Long id) {
         return this.em.find(Produto.class, id);
     }
