@@ -20,6 +20,11 @@ public class ProdutoDAO {
         this.em.merge(produto);
     }
 
+    public void deletar(Produto produto) {
+        produto = this.em.merge(produto);
+        this.em.remove(produto);
+    }
+
     public Produto buscarPorId(Long id) {
         return this.em.find(Produto.class, id);
     }

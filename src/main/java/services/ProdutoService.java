@@ -28,10 +28,27 @@ public class ProdutoService {
 
     public void atualizar(Produto produto) {
         try {
-            Optional.of(this.buscarPorId(produto.getId()))
+            Optional.of(this.buscarPorId(produto.getId()));
 
             this.em.getTransaction().begin();
             this.dao.atualizar(produto);
+            this.em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if(this.em.getTransaction().isActive()) {
+                this.em.getTransaction().rollback();
+            }
+        } finally {
+            this.em.close();
+        }
+    }
+
+    public void deletar(Produto produto) {
+        try {
+            Optional.of(this.buscarPorId(produto.getId()));
+
+            this.em.getTransaction().begin();
+            this.dao.deletar(produto);
             this.em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
