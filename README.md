@@ -1,5 +1,13 @@
-# Java JPA Hibernate
-Entendendo o conceito da especificação JPA (Java Persistence API) e como realizar a implementação utilizando o Hibernate.
+#  👨‍💻 Java JPA Hibernate 🧑‍💻
+
+<b>Introdução:</b>
+- JPA e suas implementações;
+- Ciclo de vida de uma entidade;
+- Dependências;
+- Configuração do arquivo <b>persistence.xml:</b>
+- Executando projeto
+
+##
 
 ### 1 - JPA e suas implementações:
 
@@ -8,7 +16,26 @@ O <b>Hibernate</b> é a implementação mais usada atualmente no mercado.
 
 ![image](https://user-images.githubusercontent.com/74054701/209901789-342b8da3-8c62-452d-9f72-737d202c2809.png)
 ##
-### 2 - Dependências
+### 2 - Ciclo de vida de uma entidade:
+
+- <b>TRANSIENT:</b> Entidade que <b>nunca</b> foi <b>persistida</b>, ou seja, entidade que não está gravada no banco de dados.
+- <b>MANAGED:</b> <b>Managed</b> é o principal estado que uma entidade pode estar, portanto, tudo que acontece com uma entidade nesse estado, a <b>JPA observará</b> e poderá sincronizar com o banco de dados, a depender do que fizermos.
+- <b>DETACHED:</b> o <b>Detached</b> é um estado em que a entidade <b>não</b> é <b>mais transient</b>, porque <b>tem id</b>, já foi salva no banco de dados, porém, não está mais sendo gerenciada. Portanto, se mexermos nos atributos, a <b>JPA não disparará update</b> e <b>nem fará mais nada</b>.
+- <b>REMOVED:</b> estado de uma entidade <b>removida</b>.
+
+![image](https://user-images.githubusercontent.com/74054701/209910879-7ce76282-6847-4b14-a4b9-c672b95b3e78.png)
+
+- <b>persist():</b> move do estado <b>TRANSIENT</b> para o estado <b>MANAGED</b>.
+- <b>clear():</b> para <b>limpar</b> as entidades gerenciadas do <b>EntityManager</b>, o modo muda de estado. Se ela estava salva antes, passa para um estado chamado de <b>DETACHED</b>.
+- <b>close():</b> fechar o <b>EntityManager</b>, o modo muda de estado. Se ela estava salva antes, passa para um estado chamado de <b>DETACHED</b>.
+- <b>flush():</b> <b>JPA sincronizará</b> as informações com o banco de dados.
+- <b>commit():</b> JPA sincronizará e confirmará com o banco de dados as operações(insert/update/delete) realizadas numa transação.
+- <b>merge():</b> move do estado <b>DETACHED</b> para o estado <b>MANAGED</b>.
+- <b>remove():</b> para exclusão da entidade, move do estado <b>MANAGED</b> para o estado <b>REMOVED</b>.
+
+
+##
+### 3 - Dependências
 - Hibernate
 - H2 Database
 ~~~
@@ -27,7 +54,7 @@ O <b>Hibernate</b> é a implementação mais usada atualmente no mercado.
     </dependencies>
 ~~~
 ##
-### 3 - Configuração do arquivo <b>persistence.xml:</b>
+### 4 - Configuração do arquivo <b>persistence.xml:</b>
 Na <b>JPA</b>, as configurações ficam no arquivo <b>.xml</b>. É possível configurar também via código Java, mas, geralmente, ficam no arquivo <b>persistence.xml</b>.
 
 - Criei uma pasta  <b>META-INF</b> dentro da pasta <b>resources</b>
@@ -110,3 +137,13 @@ Cada uma das implementações da JPA possuem propriedades específicas. Como est
 ~~~
 <property name="hibernate.hbm2ddl.auto" value="update"/>
 ~~~
+##
+### 5 - Executando projeto
+
+Exemplo utilizando IDE intellij idea:
+![image](https://user-images.githubusercontent.com/74054701/209914527-99ed7bc8-e378-42f8-8f17-1aed674ba5ae.png)
+
+![image](https://user-images.githubusercontent.com/74054701/209914629-ca51bc58-c51e-49e2-8b21-9ae8c38179ca.png)
+
+
+
