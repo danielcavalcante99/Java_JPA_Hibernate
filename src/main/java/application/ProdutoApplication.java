@@ -55,7 +55,7 @@ public class ProdutoResource {
         return Response.status(Response.Status.CREATED).entity(atualizarProduto).build();
     }
 
-    @PUT
+    @DELETE
     @Path("/deletar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
