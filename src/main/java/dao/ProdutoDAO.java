@@ -16,13 +16,15 @@ public class ProdutoDAO {
         this.em.persist(produto);
     }
 
-    public void atualizar(Produto produto) {
+    public Produto atualizar(Produto produto) {
         this.em.merge(produto);
+        return produto;
     }
 
-    public void deletar(Produto produto) {
+    public Produto deletar(Produto produto) {
         produto = this.em.merge(produto);
         this.em.remove(produto);
+        return produto;
     }
 
     public Produto buscarPorId(Long id) {
